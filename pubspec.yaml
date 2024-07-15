@@ -1,0 +1,27 @@
+name: flutterchat
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^2.8.0
+  firebase_auth: ^4.6.1
+  cloud_firestore: ^4.9.1
+  firebase_storage: ^11.2.0
+  geolocator: ^9.0.2
+  geocoding: ^3.0.0
+  url_launcher: ^6.1.7
+  google_maps_flutter: ^2.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
