@@ -10,12 +10,27 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Chat')),
+      backgroundColor: Colors.grey[200],
+      appBar: AppBar(
+        title: Text('Chat'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Expanded(
             child: StreamBuilder(
-              stream: FirebaseFirestore.instance.collection('messages').orderBy('createdAt', descending: true).snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection('messages')
+                  .orderBy('createdAt', descending: true)
+                  .snapshots(),
               builder: (ctx, AsyncSnapshot<QuerySnapshot> chatSnapshot) {
                 if (chatSnapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -29,32 +44,26 @@ class ChatScreen extends StatelessWidget {
                   itemCount: chatDocs.length,
                   itemBuilder: (ctx, index) {
                     final message = chatDocs[index]['text'];
-                    print('Message: $message');  // Debugging line
                     if (message.startsWith('Location:')) {
-                      final location = message.substring('Location: '.length);
-                      final latLng = location.split(',');
-                      print('Location: $location');  // Debugging line
-                      if (latLng.length == 2) {
-                        try {
-                          final latitude = double.parse(latLng[0]);
-                          final longitude = double.parse(latLng[1]);
-                          return ListTile(
-                            title: Text('Location: $latitude, $longitude'),
-                            onTap: () {
-                              _openMap(latitude, longitude);
-                            },
-                          );
-                        } catch (e) {
-                          print('Error parsing location: $e');  // Debugging line
-                          return ListTile(
-                            title: Text('Invalid location format'),
-                          );
-                        }
-                      } else {
-                        return ListTile(
-                          title: Text('Invalid location format'),
-                        );
-                      }
+                      final locationUrl =
+                          message.substring('Location: '.length);
+                      return ListTile(
+                        title: GestureDetector(
+                          child: Text.rich(
+                            TextSpan(
+                              text: locationUrl,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                          onTap: () {
+                            _openMap(locationUrl);
+                          },
+                        ),
+                      );
                     }
                     return ListTile(
                       title: Text(message),
@@ -79,14 +88,15 @@ class ChatScreen extends StatelessWidget {
                   onPressed: () async {
                     final user = FirebaseAuth.instance.currentUser;
                     if (user != null) {
-                      await FirebaseFirestore.instance.collection('messages').add({
+                      await FirebaseFirestore.instance
+                          .collection('messages')
+                          .add({
                         'text': messageController.text,
                         'createdAt': Timestamp.now(),
                         'userId': user.uid,
                       });
                       messageController.clear();
                     } else {
-                      // Manejar el caso de usuario no autenticado
                       print('No user is signed in.');
                     }
                   },
@@ -96,14 +106,18 @@ class ChatScreen extends StatelessWidget {
                   onPressed: () async {
                     final user = FirebaseAuth.instance.currentUser;
                     if (user != null) {
-                      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-                      await FirebaseFirestore.instance.collection('messages').add({
-                        'text': 'Location: ${position.latitude},${position.longitude}',
+                      Position position = await Geolocator.getCurrentPosition(
+                          desiredAccuracy: LocationAccuracy.high);
+                      final googleMapsUrl =
+                          'https://www.google.com/maps/search/?api=1&query=${position.latitude},${position.longitude}';
+                      await FirebaseFirestore.instance
+                          .collection('messages')
+                          .add({
+                        'text': 'Location: $googleMapsUrl',
                         'createdAt': Timestamp.now(),
                         'userId': user.uid,
                       });
                     } else {
-                      // Manejar el caso de usuario no autenticado
                       print('No user is signed in.');
                     }
                   },
@@ -116,10 +130,9 @@ class ChatScreen extends StatelessWidget {
     );
   }
 
-  void _openMap(double latitude, double longitude) async {
-    final googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
-    if (await canLaunch(googleMapsUrl)) {
-      await launch(googleMapsUrl);
+  void _openMap(String locationUrl) async {
+    if (await canLaunch(locationUrl)) {
+      await launch(locationUrl);
     } else {
       throw 'Could not open the map.';
     }
