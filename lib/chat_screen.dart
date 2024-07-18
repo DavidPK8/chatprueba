@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'login_screen.dart'; // Importar la pantalla de inicio de sesión
 
 class ChatScreen extends StatelessWidget {
   final TextEditingController messageController = TextEditingController();
@@ -13,12 +14,18 @@ class ChatScreen extends StatelessWidget {
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text('Chat'),
+        backgroundColor: const Color.fromARGB(255, 52, 159, 247),
+        centerTitle: true,
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app),
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
-              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+                (route) => false, // Elimina todas las rutas en el stack
+              );
             },
           ),
         ],
