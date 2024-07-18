@@ -39,16 +39,19 @@ Paso 5: Escoger uno de los navedadores disponibles (Seleccionar 1,2 o 3):
 * Login del proyecto
 <br>
 ![image](https://github.com/user-attachments/assets/685d4293-fbe6-4a89-94e3-b65c1b3dbdb9)
+
 <br>
 
 * Registro de cuenta
 <br>
 ![image](https://github.com/user-attachments/assets/5e3b6434-5a5c-4659-afa4-098e37a80ff5)
+
 <br>
 
 * Chat
 <br>
 ![image](https://github.com/user-attachments/assets/36634a68-3be4-4aa7-9bd7-93824d5fd5d8)
+
 <br>
 
 ## Autores
