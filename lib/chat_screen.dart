@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'login_screen.dart'; // Importar la pantalla de inicio de sesión
+import 'login_screen.dart'; 
 
 class ChatScreen extends StatelessWidget {
   final TextEditingController messageController = TextEditingController();
@@ -13,7 +13,7 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Chat'),
+        title: Text('Chat', style: TextStyle(fontFamily: 'Roboto', fontSize: 24)),
         backgroundColor: const Color.fromARGB(255, 52, 159, 247),
         centerTitle: true,
         actions: [
