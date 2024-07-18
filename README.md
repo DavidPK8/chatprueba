@@ -7,7 +7,7 @@ Este proyecto fue hecho con Flutter.
 Para poder clonar y utilizar este repositorio para ver su funcionamiento o para realizar mejoras, se necesitan las siguientes herramientas:
 
 * Git
-* Un editor de texto compatible con Node.js como Visual Studio Code
+* Un editor de texto como Visual Studio Code
 * Tener las extenciones de Flutter y dart.
 
 ## Instalación
