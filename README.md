@@ -1,6 +1,11 @@
 # Evaluación del segundo bimestre
 ##  Chat
-Implementar una aplicación tipo chat que permita enviar mensajes y también la ubicación. 
+Implementar una aplicación tipo chat que permita enviar mensajes y también la ubicación.
+
+## Autores
+* David Vallejo
+* Alejandro Moreira
+* Jared Valenzuela
 
 ## Manual de instalación
 Este proyecto fue hecho con Flutter.
@@ -57,10 +62,7 @@ Paso 5: Escoger uno de los navedadores disponibles (Seleccionar 1,2 o 3):
 
 <br>
 
-## Autores
-* David Vallejo
-* Alejandro Moreira
-* Jared Valenzuela
+
 
 ## Deploy en la web
 https://flutterfirebase-12e3f.web.app 
