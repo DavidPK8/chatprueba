@@ -65,4 +65,4 @@ Paso 5: Escoger uno de los navedadores disponibles (Seleccionar 1,2 o 3):
 
 
 ## Deploy en la web
-https://flutterfirebase-12e3f.web.app 
+https://flutterfirebase-12e3f.web.app/
